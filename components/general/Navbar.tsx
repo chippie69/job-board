@@ -2,6 +2,8 @@ import Image from "next/image";
 import Link from "next/link";
 
 import Logo from "@/public/logo.png";
+import { ThemeToggle } from "@/components/general/ThemeToggle";
+import { buttonVariants } from "../ui/button";
 
 export const Navbar = () => {
   return (
@@ -12,6 +14,13 @@ export const Navbar = () => {
           Job<span className="text-primary">Board</span>
         </h1>
       </Link>
+
+      <div className="hidden md:flex items-center gap-5">
+        <ThemeToggle />
+        <Link href="/post-job" className={buttonVariants({ size: "lg" })}>
+          Post Job
+        </Link>
+      </div>
     </nav>
   );
 };
