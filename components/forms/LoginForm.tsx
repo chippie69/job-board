@@ -10,6 +10,7 @@ import {
 import * as React from "react";
 import type { SVGProps } from "react";
 import { GeneralSubmitButton } from "@/components/general/SubmitButtons";
+import { signIn } from "@/app/utils/auth";
 
 const Github = (props: SVGProps<SVGSVGElement>) => (
   <svg
@@ -66,10 +67,45 @@ export function LoginForm() {
         </CardHeader>
         <CardContent>
             <div className="grid gap-6">
-                <div className="flex flex-col gap-4"></div>
+                <div className="flex flex-col gap-4">
+                  <form
+                    action={async () => {
+                      "use server"
+                      await signIn("github", {
+                        redirectTo: "/onboarding",
+                      });
+                    }}
+                  >
+                    <GeneralSubmitButton 
+                      text="Login with Github"
+                      icon={<Github />}
+                      variant="outline"
+                      width="w-full"
+                    />
+                  </form>
+                  <form
+                    action={async () => {
+                      "use server"
+                      await signIn("google", {
+                        redirectTo: "/onboarding",
+                      });
+                    }}
+                  >
+                    <GeneralSubmitButton 
+                      text="Login with Google"
+                      icon={<Google />}
+                      variant="outline"
+                      width="w-full"
+                    />
+                  </form>
+                </div>
             </div>
         </CardContent>
       </Card>
+      <div className="text-balance text-center text-xs text-muted-foreground [&_a]:underline [&_a]:underline-offset-4 [&_a]:hover:text-primary">
+        By Clicking continue, you agree to our <a href="#">Terms of Service</a>{" "}
+        and <a href="#">Privacy Policy</a>.
+      </div>
     </div>
   );
 }
